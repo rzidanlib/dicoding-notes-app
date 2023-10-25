@@ -8,6 +8,7 @@ class NotesInput extends React.Component {
       title: "",
       body: "",
       charLimit: 50,
+      errors: {},
     };
 
     this.onTitleChange = this.onTitleChange.bind(this);
@@ -36,18 +37,36 @@ class NotesInput extends React.Component {
 
   onSubmitHandler(event) {
     event.preventDefault();
-    this.props.addNotes(this.state);
-    this.setState({
-      title: "",
-      body: "",
-    });
+    const { title, body } = this.state;
+    const errors = {};
+    if (!title.trim()) {
+      errors.title = "Notes Title is required.";
+    }
+    if (!body.trim()) {
+      errors.body = "Notes Body is required.";
+    }
+
+    if (Object.keys(errors).length === 0) {
+      this.props.addNotes(this.state);
+      this.setState({
+        title: "",
+        body: "",
+      });
+      this.setState({ charLimit: 50, errors: {} });
+      alert("Form submitted successfully.");
+    } else {
+      this.setState({ errors });
+      alert("Form submission failed. Please check the errors.");
+    }
   }
 
   render() {
+    const { errors } = this.state;
     return (
       <div className="form-content">
         <form onSubmit={this.onSubmitHandler} className="card">
           <p className="input-head-title">Input Notes</p>
+          <p className="input-title_info">Maks.{this.state.charLimit}</p>
           <input
             type="text"
             value={this.state.title}
@@ -55,7 +74,8 @@ class NotesInput extends React.Component {
             className="input-title"
             placeholder="Input title..."
           />
-          <p className="input-title_info">Maks.{this.state.charLimit}</p>
+          {errors.title && <p className="input-text_error">{errors.title}</p>}
+
           <textarea
             name="notes"
             id=""
@@ -66,6 +86,8 @@ class NotesInput extends React.Component {
             className="input-body"
             placeholder="Input notes..."
           ></textarea>
+          {errors.body && <p className="input-text_error">{errors.body}</p>}
+
           <div className="set-right">
             <button type="submit" className="input-btn">
               Save

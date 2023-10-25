@@ -89,13 +89,13 @@ a {
 .input-head-title {
   font-size: 18px;
   font-weight: 600;
+  margin-bottom: 10px;
 }
 
 .input-title {
   width: 100%;
   padding: 10px;
   border-radius: 10px;
-  margin-top: 10px;
 }
 
 .input-title_info {
@@ -106,7 +106,7 @@ a {
 .input-body {
   width: 100%;
   resize: none;
-  margin: 10px 0;
+  margin-top: 10px;
   padding: 10px;
   border-radius: 10px;
 }
@@ -115,6 +115,10 @@ a {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+}
+
+.input-btn {
+  margin-top: 10px;
 }
 
 .search-btn,
@@ -132,6 +136,11 @@ a {
 .input-btn:hover {
   background-color: rgb(34, 128, 223);
   cursor: pointer;
+}
+
+.input-text_error {
+  color: red;
+  font-size: 10px;
 }
 
 .nav-tab {
